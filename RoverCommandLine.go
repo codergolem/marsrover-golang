@@ -8,9 +8,11 @@ type RoverCommandLine struct {
 
 
 func (roverCommandLine *RoverCommandLine) start() {
-
 	fmt.Print("Please provide plateau dimensions:")
 	roverCommandLine.state = 1
+}
+
+func (roverCommandLine *RoverCommandLine) processPlateauDimensions(plateauDimensions string)  {
 
 }
 
