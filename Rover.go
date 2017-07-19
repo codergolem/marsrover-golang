@@ -14,8 +14,8 @@ type Rover struct {
 	currentXCoordinate int
 	currentYCoordinate int
 	currentOrientation string
-	Plateau Plateau
-	Parser	Parser
+	Plateau            Plateau
+	Parser             StandardParser
 }
 
 func (rover *Rover)SetCoordinates(xCoordinate int,yCoordinate int)  {

@@ -5,11 +5,18 @@ import (
 	"strconv"
 )
 
-type Parser struct {
+type RoverParser interface {
+	ParseCoordinatesAndOrientation(MarsExplorer,string)
+	ParseSpinAndMovement(MarsExplorer,string)
+	ParsePlateauDimensions(MarsExplorer,string)
+}
+
+
+type StandardParser struct {
 
 }
 
-func (parser *Parser)ParseCoordinatesAndOrientation(rover MarsExplorer,coordinatesAndOrientation string)  {
+func (parser *StandardParser)ParseCoordinatesAndOrientation(rover MarsExplorer,coordinatesAndOrientation string)  {
 	parsedCoordinatesAndOrientation := strings.Split(coordinatesAndOrientation," ")
 
 	xCoordinate,_ := strconv.Atoi(parsedCoordinatesAndOrientation[0])
@@ -21,7 +28,7 @@ func (parser *Parser)ParseCoordinatesAndOrientation(rover MarsExplorer,coordinat
 	rover.SetOrientation(orientation)
 }
 
-func (parser *Parser)ParseSpinAndMovement(rover MarsExplorer,spindAndMovementsInstructions string)  {
+func (parser *StandardParser)ParseSpinAndMovement(rover MarsExplorer,spindAndMovementsInstructions string)  {
 	parsedSpinAndMoveInstructions := strings.Split(spindAndMovementsInstructions,"")
 
 	for _,singleInstruction := range parsedSpinAndMoveInstructions {
@@ -35,7 +42,7 @@ func (parser *Parser)ParseSpinAndMovement(rover MarsExplorer,spindAndMovementsIn
 
 }
 
-func (parser *Parser)ParsePlateauDimensions(rover MarsExplorer,plateauDimensions string)  {
+func (parser *StandardParser)ParsePlateauDimensions(rover MarsExplorer,plateauDimensions string)  {
 	parsedPlateauDimensions := strings.Split(plateauDimensions," ")
 	parsedXCoordinate,_ := strconv.Atoi(parsedPlateauDimensions[0])
 	parsedYCoordinate,_ := strconv.Atoi(parsedPlateauDimensions[1])

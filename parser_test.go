@@ -9,7 +9,7 @@ import (
 func TestParseInitialCoordinatesAndOrientation(t *testing.T )  {
 	//Given
 	roverMock := new(RoverMock)
-	roverParser:= new(Parser)
+	roverParser:= new(StandardParser)
 	roverMock.On("SetCoordinates",3,5).Return()
 	roverMock.On("SetOrientation","N").Return()
 
@@ -24,7 +24,7 @@ func TestParseInitialCoordinatesAndOrientation(t *testing.T )  {
 func TestParseSpinAndMovement(t *testing.T )  {
 	//Given
 	roverMock := new(RoverMock)
-	roverParser:= new(Parser)
+	roverParser:= new(StandardParser)
 	roverMock.On("Spin","L").Return()
 	roverMock.On("Move").Return()
 
@@ -38,7 +38,7 @@ func TestParseSpinAndMovement(t *testing.T )  {
 func TestParsePlateauDimensions(t *testing.T) {
 	//given
 	roverMock := new(RoverMock)
-	roverParser:= new(Parser)
+	roverParser:= new(StandardParser)
 	plateau := Plateau{5,6}
 	roverMock.On("SetPlateau",plateau).Return()
 

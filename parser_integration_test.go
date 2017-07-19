@@ -5,7 +5,7 @@ import "github.com/stretchr/testify/assert"
 
 func TestParserSetConfigurationForRover(t *testing.T)  {
 	//Given
-	parser := Parser{}
+	parser := StandardParser{}
 	rover := new(Rover)
 
 	//When
