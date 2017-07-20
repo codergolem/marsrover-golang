@@ -8,9 +8,11 @@ import (
 )
 
 type RoverCommandLine struct {
+	Iface *os.File
 	state int
 	Parser RoverParser
 	Rover MarsExplorer
+	reader *bufio.Reader
 }
 
 
@@ -26,21 +28,21 @@ func (roverCommandLine *RoverCommandLine) getState() int  {
 	return roverCommandLine.state
 }
 
-func (roverCommandLine *RoverCommandLine) start() {
-	fmt.Print("Please provide plateau dimensions:")
+func (roverCommandLine *RoverCommandLine) start(iface *os.File){
+	roverCommandLine.Iface = iface
+	fmt.Print("Please provide plateau dimensions,rover initial position and movement instructions:")
 	roverCommandLine.state = 1
+	roverCommandLine.reader  = bufio.NewReader(roverCommandLine.Iface)
 	//roverCommandLine.read()
 
 }
 
 func (roverCommandLine *RoverCommandLine) read()  {
-	reader := bufio.NewReader(os.Stdin)
-
 	text := ""
 	switch roverCommandLine.state {
 	case 1:
 		for n:= 0; n < 3 && text != "x" ; n++ {
-			text, _ = reader.ReadString('\n')
+			text, _ = roverCommandLine.reader.ReadString('\n')
 			text = strings.Replace(text, "\n", "", -1)
 			if(n == 0) {
 				roverCommandLine.Parser.ParsePlateauDimensions(roverCommandLine.Rover,text)
@@ -54,4 +56,5 @@ func (roverCommandLine *RoverCommandLine) read()  {
 		}
 	
 	}
+	roverCommandLine.state = 2
 }

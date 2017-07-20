@@ -17,54 +17,55 @@ func TestCliShouldDisplayInitialInstructionsAndWaitForPlateauDimensions(t *testi
 
 	//Given
 	commandLine := new(RoverCommandLine)
-
 	//When
-	commandLine.start()
+	commandLine.start(stdInAndOutMock.stdInMockReader)
 	stdInAndOutMock.closeFakeWriters()
 	stdInAndOutMock.restoreToRealStdInAndOut()
 	output := stdInAndOutMock.getCapturedOutput()
 
 
 	//Then
-	assert.Equal(t,"Please provide plateau dimensions:",output)
+	assert.Equal(t,"Please provide plateau dimensions,rover initial position and movement instructions:",output)
 	assert.Equal(t,commandLine.getState(),1)
 
 }
 
-//func TestReadPlateauDimensions(t *testing.T)  {
-//	//before
-//
-//	stdInAndOutMock := new(StdInAndOutMock)
-//	stdInAndOutMock.setFakeStdInAndOut()
-//
-//	//Given
-//	commandLine := new(RoverCommandLine)
-//	commandLine.state = 1
-//	mockParser := new(MockParser)
-//	rover := new(Rover)
-//	commandLine.SetParser(mockParser)
-//
-//	mockParser.On("ParsePlateauDimensions",rover,"10 10").Return()
-//	mockParser.On("ParseCoordinatesAndOrientation",rover,"2 3").Return()
-//	mockParser.On("ParseSpinAndMovement",rover,"RMLMM").Return()
-//
-//	//When
-//	commandLine.read()
-//
-//	stdInAndOutMock.stdInMockWriter.Write([]byte("10 10\n"))
-//	stdInAndOutMock.stdInMockWriter.Write([]byte("2 3 N\n"))
-//	stdInAndOutMock.stdInMockWriter.Write([]byte("RMLMM\n"))
-//
-//	stdInAndOutMock.closeFakeWriters()
-//	stdInAndOutMock.restoreToRealStdInAndOut()
-//
-//
-//
-//	//Then
-//	assert.Equal(t,2,commandLine.getState())
-//	mockParser.AssertExpectations(t)
-//
-//}
+func TestReadPlateauDimensions(t *testing.T)  {
+	//before
+
+	reader, writer, _ := os.Pipe()
+
+
+	//Given
+	commandLine := new(RoverCommandLine)
+	commandLine.Iface = reader
+	commandLine.state = 1
+	mockParser := new(MockParser)
+	rover := new(RoverMock)
+	commandLine.SetParser(mockParser)
+	commandLine.SetRover(rover)
+	commandLine.start(reader)
+
+	mockParser.On("ParsePlateauDimensions",rover,"10 10").Return()
+	mockParser.On("ParseCoordinatesAndOrientation",rover,"2 3 N").Return()
+	mockParser.On("ParseSpinAndMovement",rover,"RMLMM").Return()
+
+	writer.Write([]byte("10 10\n"))
+	writer.Write([]byte("2 3 N\n"))
+	writer.Write([]byte("RMLMM\n"))
+
+	//When
+	commandLine.read()
+
+
+
+	writer.Close()
+
+	//Then
+	assert.Equal(t,2,commandLine.getState())
+	mockParser.AssertExpectations(t)
+
+}
 
 //Mocks
 
