@@ -30,7 +30,7 @@ func TestCliShouldDisplayInitialInstructionsAndWaitForPlateauDimensions(t *testi
 
 }
 
-func TestReadPlateauDimensions(t *testing.T)  {
+func TestReadInstructionsandCalculateRoverFinalPosition(t *testing.T)  {
 	//before
 
 	reader, writer, _ := os.Pipe()
@@ -57,8 +57,6 @@ func TestReadPlateauDimensions(t *testing.T)  {
 	//When
 	commandLine.read()
 
-
-
 	writer.Close()
 
 	//Then
@@ -66,6 +64,7 @@ func TestReadPlateauDimensions(t *testing.T)  {
 	mockParser.AssertExpectations(t)
 
 }
+
 
 //Mocks
 

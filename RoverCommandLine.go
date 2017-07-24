@@ -33,7 +33,6 @@ func (roverCommandLine *RoverCommandLine) start(iface *os.File){
 	fmt.Print("Please provide plateau dimensions,rover initial position and movement instructions:")
 	roverCommandLine.state = 1
 	roverCommandLine.reader  = bufio.NewReader(roverCommandLine.Iface)
-	//roverCommandLine.read()
 
 }
 
@@ -56,5 +55,6 @@ func (roverCommandLine *RoverCommandLine) read()  {
 		}
 	
 	}
+
 	roverCommandLine.state = 2
 }
