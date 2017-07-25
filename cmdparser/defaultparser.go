@@ -1,22 +1,24 @@
-package marsrover
+package cmdparser
 
 import (
 	"strings"
 	"strconv"
+	"marsRover/rover"
+	"marsRover/plateau"
 )
 
 type RoverParser interface {
-	ParseCoordinatesAndOrientation(MarsExplorer,string)
-	ParseSpinAndMovement(MarsExplorer,string)
-	ParsePlateauDimensions(MarsExplorer,string)
+	ParseCoordinatesAndOrientation(rover.MarsExplorer,string)
+	ParseSpinAndMovement(rover.MarsExplorer,string)
+	ParsePlateauDimensions(rover.MarsExplorer,string)
 }
 
 
-type StandardParser struct {
+type DefaultParser struct {
 
 }
 
-func (parser *StandardParser)ParseCoordinatesAndOrientation(rover MarsExplorer,coordinatesAndOrientation string)  {
+func (parser *DefaultParser)ParseCoordinatesAndOrientation(rover rover.MarsExplorer,coordinatesAndOrientation string)  {
 	parsedCoordinatesAndOrientation := strings.Split(coordinatesAndOrientation," ")
 
 	xCoordinate,_ := strconv.Atoi(parsedCoordinatesAndOrientation[0])
@@ -28,7 +30,7 @@ func (parser *StandardParser)ParseCoordinatesAndOrientation(rover MarsExplorer,c
 	rover.SetOrientation(orientation)
 }
 
-func (parser *StandardParser)ParseSpinAndMovement(rover MarsExplorer,spindAndMovementsInstructions string)  {
+func (parser *DefaultParser)ParseSpinAndMovement(rover rover.MarsExplorer,spindAndMovementsInstructions string)  {
 	parsedSpinAndMoveInstructions := strings.Split(spindAndMovementsInstructions,"")
 
 	for _,singleInstruction := range parsedSpinAndMoveInstructions {
@@ -42,12 +44,12 @@ func (parser *StandardParser)ParseSpinAndMovement(rover MarsExplorer,spindAndMov
 
 }
 
-func (parser *StandardParser)ParsePlateauDimensions(rover MarsExplorer,plateauDimensions string)  {
+func (parser *DefaultParser)ParsePlateauDimensions(rover rover.MarsExplorer,plateauDimensions string)  {
 	parsedPlateauDimensions := strings.Split(plateauDimensions," ")
 	parsedXCoordinate,_ := strconv.Atoi(parsedPlateauDimensions[0])
 	parsedYCoordinate,_ := strconv.Atoi(parsedPlateauDimensions[1])
 
-	plateau:= Plateau{parsedXCoordinate,parsedYCoordinate}
+	plateau:= plateau.Plateau{parsedXCoordinate,parsedYCoordinate}
 
 	rover.SetPlateau(plateau)
 

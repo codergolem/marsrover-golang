@@ -1,15 +1,16 @@
-package marsrover
+package cmdparser
 
 import (
 	"testing"
 	"github.com/stretchr/testify/mock"
+	"marsRover/plateau"
 )
 
 
 func TestParseInitialCoordinatesAndOrientation(t *testing.T )  {
 	//Given
 	roverMock := new(RoverMock)
-	roverParser:= new(StandardParser)
+	roverParser:= new(DefaultParser)
 	roverMock.On("SetCoordinates",3,5).Return()
 	roverMock.On("SetOrientation","N").Return()
 
@@ -24,7 +25,7 @@ func TestParseInitialCoordinatesAndOrientation(t *testing.T )  {
 func TestParseSpinAndMovement(t *testing.T )  {
 	//Given
 	roverMock := new(RoverMock)
-	roverParser:= new(StandardParser)
+	roverParser:= new(DefaultParser)
 	roverMock.On("Spin","L").Return()
 	roverMock.On("Move").Return()
 
@@ -38,8 +39,8 @@ func TestParseSpinAndMovement(t *testing.T )  {
 func TestParsePlateauDimensions(t *testing.T) {
 	//given
 	roverMock := new(RoverMock)
-	roverParser:= new(StandardParser)
-	plateau := Plateau{5,6}
+	roverParser:= new(DefaultParser)
+	plateau := plateau.Plateau{5,6}
 	roverMock.On("SetPlateau",plateau).Return()
 
 	//When
@@ -73,6 +74,6 @@ func (roverMock *RoverMock) Move()  {
 	roverMock.Called()
 }
 
-func (roverMock *RoverMock) SetPlateau(plateau Plateau) {
+func (roverMock *RoverMock) SetPlateau(plateau plateau.Plateau) {
 	roverMock.Called(plateau)
 }

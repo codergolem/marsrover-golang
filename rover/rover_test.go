@@ -1,8 +1,9 @@
-package marsrover
+package rover
 
 import "testing"
 import (
 	"github.com/onsi/gomega"
+	"marsRover/plateau"
 )
 
 
@@ -43,7 +44,7 @@ func TestSetOrientation(t *testing.T)  {
 func TestSetPlateau(t *testing.T)  {
 	gomega.RegisterTestingT(t)
 	//Given
-	plateau := Plateau{7,8}
+	plateau := plateau.Plateau{7,8}
 	rover := new(Rover)
 
 	//When
@@ -206,9 +207,9 @@ func TestRoverMovesWhenInitialOrientationIsNorth(t *testing.T)  {
 	rover.Move()
 
 	//Then
-	gomega.Expect(rover.currentXCoordinate).To(gomega.Equal(1))
-	gomega.Expect(rover.currentYCoordinate).To(gomega.Equal(4))
-	gomega.Expect(rover.currentOrientation).To(gomega.Equal(orientation))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(1))
+	gomega.Expect(rover.CurrentYCoordinate).To(gomega.Equal(4))
+	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal(orientation))
 
 }
 
@@ -226,9 +227,9 @@ func TestRoverMovesWhenInitialOrientationIsSouth(t *testing.T)  {
 	rover.Move()
 
 	//Then
-	gomega.Expect(rover.currentXCoordinate).To(gomega.Equal(1))
-	gomega.Expect(rover.currentYCoordinate).To(gomega.Equal(2))
-	gomega.Expect(rover.currentOrientation).To(gomega.Equal(orientation))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(1))
+	gomega.Expect(rover.CurrentYCoordinate).To(gomega.Equal(2))
+	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal(orientation))
 
 }
 
@@ -246,9 +247,9 @@ func TestRoverMovesWhenInitialOrientationIsWest(t *testing.T)  {
 	rover.Move()
 
 	//Then
-	gomega.Expect(rover.currentXCoordinate).To(gomega.Equal(0))
-	gomega.Expect(rover.currentYCoordinate).To(gomega.Equal(3))
-	gomega.Expect(rover.currentOrientation).To(gomega.Equal(orientation))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(0))
+	gomega.Expect(rover.CurrentYCoordinate).To(gomega.Equal(3))
+	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal(orientation))
 
 }
 
@@ -266,8 +267,8 @@ func TestRoverMovesWhenInitialOrientationIsEast(t *testing.T)  {
 	rover.Move()
 
 	//Then
-	gomega.Expect(rover.currentXCoordinate).To(gomega.Equal(2))
-	gomega.Expect(rover.currentYCoordinate).To(gomega.Equal(3))
-	gomega.Expect(rover.currentOrientation).To(gomega.Equal(orientation))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(2))
+	gomega.Expect(rover.CurrentYCoordinate).To(gomega.Equal(3))
+	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal(orientation))
 
 }

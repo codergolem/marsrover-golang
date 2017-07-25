@@ -1,4 +1,4 @@
-package marsrover
+package rover
 
 import (
 	"testing"
@@ -18,9 +18,9 @@ func TestMarsRoversMovesToTheNorth(t *testing.T)  {
 	rover.Move()
 
 	//Then
-	gomega.Expect(rover.currentXCoordinate).To(gomega.Equal(1))
-	gomega.Expect(rover.currentYCoordinate).To(gomega.Equal(3))
-	gomega.Expect(rover.currentOrientation).To(gomega.Equal("N"))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(1))
+	gomega.Expect(rover.CurrentYCoordinate).To(gomega.Equal(3))
+	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal("N"))
 }
 
 func TestMarsRoversMovesToTheEast(t *testing.T)  {
@@ -40,7 +40,7 @@ func TestMarsRoversMovesToTheEast(t *testing.T)  {
 	rover.Move()
 
 	//Then
-	gomega.Expect(rover.currentXCoordinate).To(gomega.Equal(3))
-	gomega.Expect(rover.currentYCoordinate).To(gomega.Equal(3))
-	gomega.Expect(rover.currentOrientation).To(gomega.Equal("E"))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(3))
+	gomega.Expect(rover.CurrentXCoordinate).To(gomega.Equal(3))
+	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal("E"))
 }

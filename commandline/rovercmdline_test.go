@@ -1,4 +1,4 @@
-package marsrover
+package commandline
 
 import (
 	"testing"
@@ -6,7 +6,8 @@ import (
 	"io/ioutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-
+	"marsRover/rover"
+	"marsRover/plateau"
 )
 
 
@@ -73,15 +74,15 @@ type MockParser struct {
 	mock.Mock
 }
 
-func (parser *MockParser)ParsePlateauDimensions(rover MarsExplorer,plateauDimensions string) {
+func (parser *MockParser)ParsePlateauDimensions(rover rover.MarsExplorer,plateauDimensions string) {
 	parser.Called(rover,plateauDimensions)
 }
 
-func (parser *MockParser)ParseCoordinatesAndOrientation(rover MarsExplorer,coordinatesAndOrientation string) {
+func (parser *MockParser)ParseCoordinatesAndOrientation(rover rover.MarsExplorer,coordinatesAndOrientation string) {
 	parser.Called(rover,coordinatesAndOrientation)
 }
 
-func (parser *MockParser)ParseSpinAndMovement(rover MarsExplorer,spinAndMovementInstructions string) {
+func (parser *MockParser)ParseSpinAndMovement(rover rover.MarsExplorer,spinAndMovementInstructions string) {
 	parser.Called(rover,spinAndMovementInstructions)
 }
 
@@ -127,3 +128,28 @@ func (stdInAndOutMock *StdInAndOutMock) closeFakeWriters() {
 }
 
 
+//Mocks
+
+type RoverMock struct {
+	mock.Mock
+}
+
+func (roverMock *RoverMock) SetCoordinates(xCoordinate,yCoordinate int)  {
+	roverMock.Called(xCoordinate,yCoordinate)
+}
+
+func (roverMock *RoverMock) SetOrientation(orientation string)  {
+	roverMock.Called(orientation)
+}
+
+func (roverMock *RoverMock) Spin(direction string)  {
+	roverMock.Called(direction)
+}
+
+func (roverMock *RoverMock) Move()  {
+	roverMock.Called()
+}
+
+func (roverMock *RoverMock) SetPlateau(plateau plateau.Plateau) {
+	roverMock.Called(plateau)
+}

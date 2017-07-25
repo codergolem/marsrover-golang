@@ -1,8 +1,11 @@
-package marsrover
+package rover
 
+import (
+	"marsRover/plateau"
+)
 
 type MarsExplorer interface {
-	SetPlateau(Plateau)
+	SetPlateau(plateau.Plateau)
 	SetCoordinates(int,int)
 	SetOrientation(string)
 	Spin(string)
@@ -11,16 +14,15 @@ type MarsExplorer interface {
 }
 
 type Rover struct {
-	currentXCoordinate int
-	currentYCoordinate int
-	currentOrientation string
-	Plateau            Plateau
-	Parser             StandardParser
+	CurrentXCoordinate int
+	CurrentYCoordinate int
+	CurrentOrientation string
+	Plateau            plateau.Plateau
 }
 
 func (rover *Rover)SetCoordinates(xCoordinate int,yCoordinate int)  {
-	rover.currentXCoordinate = xCoordinate
-	rover.currentYCoordinate = yCoordinate
+	rover.CurrentXCoordinate = xCoordinate
+	rover.CurrentYCoordinate = yCoordinate
 	
 }
 
@@ -58,31 +60,31 @@ func (rover *Rover) Spin(direction string) {
 func (rover *Rover) Move()  {
 	switch rover.GetOrientation() {
 	case "N":
-		rover.SetCoordinates(rover.currentXCoordinate,rover.currentYCoordinate + 1)
+		rover.SetCoordinates(rover.CurrentXCoordinate,rover.CurrentYCoordinate + 1)
 	case "W":
-		rover.SetCoordinates(rover.currentXCoordinate - 1,rover.currentYCoordinate)
+		rover.SetCoordinates(rover.CurrentXCoordinate - 1,rover.CurrentYCoordinate)
 	case "S":
-		rover.SetCoordinates(rover.currentXCoordinate,rover.currentYCoordinate - 1)
+		rover.SetCoordinates(rover.CurrentXCoordinate,rover.CurrentYCoordinate - 1)
 	case "E":
-		rover.SetCoordinates(rover.currentXCoordinate + 1,rover.currentYCoordinate)
+		rover.SetCoordinates(rover.CurrentXCoordinate + 1,rover.CurrentYCoordinate)
 
 	}
 }
 
 func (rover *Rover) GetCoordinates() (int,int) {
-	return rover.currentXCoordinate, rover.currentYCoordinate
+	return rover.CurrentXCoordinate, rover.CurrentYCoordinate
 }
 
 func (rover *Rover) SetOrientation(orientation string) () {
 
-	rover.currentOrientation = orientation
+	rover.CurrentOrientation = orientation
 }
 
-func (rover *Rover) SetPlateau(plateau Plateau)  {
+func (rover *Rover) SetPlateau(plateau plateau.Plateau)  {
 	rover.Plateau = plateau
 }
 
 func (rover *Rover) GetOrientation()  string {
-	return rover.currentOrientation
+	return rover.CurrentOrientation
 }
 

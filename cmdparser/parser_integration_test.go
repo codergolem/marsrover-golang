@@ -1,12 +1,15 @@
-package marsrover
+package cmdparser
 
 import "testing"
-import "github.com/stretchr/testify/assert"
+import (
+	"github.com/stretchr/testify/assert"
+	"marsRover/rover"
+)
 
 func TestParserSetConfigurationForRover(t *testing.T)  {
 	//Given
-	parser := StandardParser{}
-	rover := new(Rover)
+	parser := DefaultParser{}
+	rover := new(rover.Rover)
 
 	//When
 	parser.ParsePlateauDimensions(rover,"10 10")

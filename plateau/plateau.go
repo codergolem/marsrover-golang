@@ -1,4 +1,4 @@
-package marsrover
+package plateau
 
 type Plateau struct {
 	MaximumYCoordinate  int

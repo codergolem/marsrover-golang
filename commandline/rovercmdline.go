@@ -1,26 +1,28 @@
-package marsrover
+package commandline
 
 import (
 	"fmt"
 	"bufio"
 	"os"
 	"strings"
+	"marsRover/cmdparser"
+	"marsRover/rover"
 )
 
 type RoverCommandLine struct {
 	Iface *os.File
 	state int
-	Parser RoverParser
-	Rover MarsExplorer
+	Parser cmdparser.RoverParser
+	Rover rover.MarsExplorer
 	reader *bufio.Reader
 }
 
 
-func (roverCommandLine *RoverCommandLine) SetParser(parser RoverParser) {
+func (roverCommandLine *RoverCommandLine) SetParser(parser cmdparser.RoverParser) {
 	roverCommandLine.Parser = parser
 }
 
-func (roverCommandLine *RoverCommandLine) SetRover(rover MarsExplorer) {
+func (roverCommandLine *RoverCommandLine) SetRover(rover rover.MarsExplorer) {
 	roverCommandLine.Rover = rover
 }
 
