@@ -2,11 +2,10 @@ package marsrover
 
 type MarsExplorer interface {
 	SetPlateau(plateau Plateau)
-	SetCoordinates(int,int)
+	SetCoordinates(int, int)
 	SetOrientation(string)
 	Spin(string)
 	Move()
-
 }
 
 type Rover struct {
@@ -16,10 +15,10 @@ type Rover struct {
 	Plateau            Plateau
 }
 
-func (rover *Rover)SetCoordinates(xCoordinate int,yCoordinate int)  {
+func (rover *Rover) SetCoordinates(xCoordinate int, yCoordinate int) {
 	rover.CurrentXCoordinate = xCoordinate
 	rover.CurrentYCoordinate = yCoordinate
-	
+
 }
 
 func (rover *Rover) Spin(direction string) {
@@ -53,34 +52,33 @@ func (rover *Rover) Spin(direction string) {
 
 }
 
-func (rover *Rover) Move()  {
+func (rover *Rover) Move() {
 	switch rover.Orientation() {
 	case "N":
-		rover.SetCoordinates(rover.CurrentXCoordinate,rover.CurrentYCoordinate + 1)
+		rover.SetCoordinates(rover.CurrentXCoordinate, rover.CurrentYCoordinate+1)
 	case "W":
-		rover.SetCoordinates(rover.CurrentXCoordinate - 1,rover.CurrentYCoordinate)
+		rover.SetCoordinates(rover.CurrentXCoordinate-1, rover.CurrentYCoordinate)
 	case "S":
-		rover.SetCoordinates(rover.CurrentXCoordinate,rover.CurrentYCoordinate - 1)
+		rover.SetCoordinates(rover.CurrentXCoordinate, rover.CurrentYCoordinate-1)
 	case "E":
-		rover.SetCoordinates(rover.CurrentXCoordinate + 1,rover.CurrentYCoordinate)
+		rover.SetCoordinates(rover.CurrentXCoordinate+1, rover.CurrentYCoordinate)
 
 	}
 }
 
-func (rover *Rover) Coordinates() (int,int) {
+func (rover *Rover) Coordinates() (int, int) {
 	return rover.CurrentXCoordinate, rover.CurrentYCoordinate
 }
 
-func (rover *Rover) SetOrientation(orientation string) () {
+func (rover *Rover) SetOrientation(orientation string) {
 
 	rover.CurrentOrientation = orientation
 }
 
-func (rover *Rover) SetPlateau(plateau Plateau)  {
+func (rover *Rover) SetPlateau(plateau Plateau) {
 	rover.Plateau = plateau
 }
 
-func (rover *Rover) Orientation()  string {
+func (rover *Rover) Orientation() string {
 	return rover.CurrentOrientation
 }
-

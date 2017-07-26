@@ -5,27 +5,25 @@ import (
 	"github.com/onsi/gomega"
 )
 
-
-func TestSetCoordinates(t *testing.T)  {
+func TestSetCoordinates(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
-	const coordinateX int  = 6
-	const coordinateY int  = 7
+	const coordinateX int = 6
+	const coordinateY int = 7
 
 	rover := new(Rover)
 
 	//When
-	rover.SetCoordinates(coordinateX,coordinateY)
+	rover.SetCoordinates(coordinateX, coordinateY)
 	actualXCoordinate, actualYCoordinate := rover.Coordinates()
 
 	//Then
 	gomega.Expect(actualXCoordinate).To(gomega.Equal(coordinateX))
 	gomega.Expect(actualYCoordinate).To(gomega.Equal(coordinateY))
 
-
 }
 
-func TestSetOrientation(t *testing.T)  {
+func TestSetOrientation(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "N"
@@ -40,10 +38,10 @@ func TestSetOrientation(t *testing.T)  {
 
 }
 
-func TestSetPlateau(t *testing.T)  {
+func TestSetPlateau(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
-	plateau := Plateau{7,8}
+	plateau := Plateau{7, 8}
 	rover := new(Rover)
 
 	//When
@@ -53,7 +51,7 @@ func TestSetPlateau(t *testing.T)  {
 	gomega.Expect(rover.Plateau).To(gomega.Equal(plateau))
 }
 
-func TestRoverSpinToTheLeftWhenStartingFromNorth(t *testing.T)  {
+func TestRoverSpinToTheLeftWhenStartingFromNorth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "N"
@@ -67,11 +65,9 @@ func TestRoverSpinToTheLeftWhenStartingFromNorth(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("W"))
 
-
 }
 
-
-func TestRoverSpinToTheLeftWhenStartingFromWest(t *testing.T)  {
+func TestRoverSpinToTheLeftWhenStartingFromWest(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "W"
@@ -84,11 +80,9 @@ func TestRoverSpinToTheLeftWhenStartingFromWest(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("S"))
 
-
 }
 
-
-func TestRoverSpinToTheLeftWhenStartingFromSouth(t *testing.T)  {
+func TestRoverSpinToTheLeftWhenStartingFromSouth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "S"
@@ -102,10 +96,9 @@ func TestRoverSpinToTheLeftWhenStartingFromSouth(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("E"))
 
-
 }
 
-func TestRoverSpinToTheLeftWhenStartingFromEast(t *testing.T)  {
+func TestRoverSpinToTheLeftWhenStartingFromEast(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "E"
@@ -119,10 +112,9 @@ func TestRoverSpinToTheLeftWhenStartingFromEast(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("N"))
 
-
 }
 
-func TestRoverSpinToTheRightWhenStartingFromNorth(t *testing.T)  {
+func TestRoverSpinToTheRightWhenStartingFromNorth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "N"
@@ -136,11 +128,9 @@ func TestRoverSpinToTheRightWhenStartingFromNorth(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("E"))
 
-
 }
 
-
-func TestRoverSpinToTheRightWhenStartingFromEast(t *testing.T)  {
+func TestRoverSpinToTheRightWhenStartingFromEast(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "E"
@@ -154,11 +144,9 @@ func TestRoverSpinToTheRightWhenStartingFromEast(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("S"))
 
-
 }
 
-
-func TestRoverSpinToTheRightWhenStartingFromSouth(t *testing.T)  {
+func TestRoverSpinToTheRightWhenStartingFromSouth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "S"
@@ -172,11 +160,9 @@ func TestRoverSpinToTheRightWhenStartingFromSouth(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("W"))
 
-
 }
 
-
-func TestRoverSpinToTheRightWhenStartingFromWest(t *testing.T)  {
+func TestRoverSpinToTheRightWhenStartingFromWest(t *testing.T) {
 	gomega.RegisterTestingT(t)
 	//Given
 	const orientation string = "W"
@@ -190,17 +176,16 @@ func TestRoverSpinToTheRightWhenStartingFromWest(t *testing.T)  {
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("N"))
 
-
 }
 
-func TestRoverMovesWhenInitialOrientationIsNorth(t *testing.T)  {
+func TestRoverMovesWhenInitialOrientationIsNorth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 
 	//Given
-	const orientation string  = "N"
+	const orientation string = "N"
 	rover := new(Rover)
 	rover.SetOrientation(orientation)
-	rover.SetCoordinates(1,3)
+	rover.SetCoordinates(1, 3)
 
 	//When
 	rover.Move()
@@ -212,15 +197,14 @@ func TestRoverMovesWhenInitialOrientationIsNorth(t *testing.T)  {
 
 }
 
-
-func TestRoverMovesWhenInitialOrientationIsSouth(t *testing.T)  {
+func TestRoverMovesWhenInitialOrientationIsSouth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 
 	//Given
-	const orientation string  = "S"
+	const orientation string = "S"
 	rover := new(Rover)
 	rover.SetOrientation(orientation)
-	rover.SetCoordinates(1,3)
+	rover.SetCoordinates(1, 3)
 
 	//When
 	rover.Move()
@@ -232,15 +216,14 @@ func TestRoverMovesWhenInitialOrientationIsSouth(t *testing.T)  {
 
 }
 
-
-func TestRoverMovesWhenInitialOrientationIsWest(t *testing.T)  {
+func TestRoverMovesWhenInitialOrientationIsWest(t *testing.T) {
 	gomega.RegisterTestingT(t)
 
 	//Given
-	const orientation string  = "W"
+	const orientation string = "W"
 	rover := new(Rover)
 	rover.SetOrientation(orientation)
-	rover.SetCoordinates(1,3)
+	rover.SetCoordinates(1, 3)
 
 	//When
 	rover.Move()
@@ -252,15 +235,14 @@ func TestRoverMovesWhenInitialOrientationIsWest(t *testing.T)  {
 
 }
 
-
-func TestRoverMovesWhenInitialOrientationIsEast(t *testing.T)  {
+func TestRoverMovesWhenInitialOrientationIsEast(t *testing.T) {
 	gomega.RegisterTestingT(t)
 
 	//Given
-	const orientation string  = "E"
+	const orientation string = "E"
 	rover := new(Rover)
 	rover.SetOrientation(orientation)
-	rover.SetCoordinates(1,3)
+	rover.SetCoordinates(1, 3)
 
 	//When
 	rover.Move()

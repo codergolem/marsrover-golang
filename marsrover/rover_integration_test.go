@@ -1,17 +1,17 @@
 package marsrover
 
 import (
-	"testing"
 	"github.com/onsi/gomega"
+	"testing"
 )
 
-func TestMarsRoversMovesToTheNorth(t *testing.T)  {
+func TestMarsRoversMovesToTheNorth(t *testing.T) {
 	gomega.RegisterTestingT(t)
 
 	//Given
 	rover := new(Rover)
 	rover.SetOrientation("E")
-	rover.SetCoordinates(1,2)
+	rover.SetCoordinates(1, 2)
 
 	//When
 	rover.Spin("L")
@@ -23,13 +23,13 @@ func TestMarsRoversMovesToTheNorth(t *testing.T)  {
 	gomega.Expect(rover.CurrentOrientation).To(gomega.Equal("N"))
 }
 
-func TestMarsRoversMovesToTheEast(t *testing.T)  {
+func TestMarsRoversMovesToTheEast(t *testing.T) {
 	gomega.RegisterTestingT(t)
 
 	//Given
 	rover := new(Rover)
 	rover.SetOrientation("N")
-	rover.SetCoordinates(1,2)
+	rover.SetCoordinates(1, 2)
 
 	//When
 	rover.Spin("R")

@@ -1,6 +1,6 @@
 package marsrover
 
 type Plateau struct {
-	MaximumXCoordinate  int
+	MaximumXCoordinate int
 	MaximumYCoordinate int
 }

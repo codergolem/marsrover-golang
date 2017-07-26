@@ -1,16 +1,15 @@
 package commandline
 
 import (
-	"testing"
-	"os"
-	"io/ioutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"io/ioutil"
 	"marsRover/marsrover"
+	"os"
+	"testing"
 )
 
-
-func TestCliShouldDisplayInitialInstructionsAndWaitForPlateauDimensions(t *testing.T)  {
+func TestCliShouldDisplayInitialInstructionsAndWaitForPlateauDimensions(t *testing.T) {
 	//before
 	stdInAndOutMock := new(StdInAndOutMock)
 	stdInAndOutMock.setFakeStdInAndOut()
@@ -23,18 +22,16 @@ func TestCliShouldDisplayInitialInstructionsAndWaitForPlateauDimensions(t *testi
 	stdInAndOutMock.restoreToRealStdInAndOut()
 	output := stdInAndOutMock.getCapturedOutput()
 
-
 	//Then
-	assert.Equal(t,"Please provide plateau dimensions,marsrover initial position and movement instructions:",output)
-	assert.Equal(t,commandLine.getState(),1)
+	assert.Equal(t, "Please provide plateau dimensions,marsrover initial position and movement instructions:", output)
+	assert.Equal(t, commandLine.getState(), 1)
 
 }
 
-func TestReadInstructionsandCalculateRoverFinalPosition(t *testing.T)  {
+func TestReadInstructionsandCalculateRoverFinalPosition(t *testing.T) {
 	//before
 
 	reader, writer, _ := os.Pipe()
-
 
 	//Given
 	commandLine := new(RoverCommandLine)
@@ -46,9 +43,9 @@ func TestReadInstructionsandCalculateRoverFinalPosition(t *testing.T)  {
 	commandLine.SetRover(rover)
 	commandLine.start(reader)
 
-	mockParser.On("ParsePlateauDimensions",rover,"10 10").Return()
-	mockParser.On("ParseCoordinatesAndOrientation",rover,"2 3 N").Return()
-	mockParser.On("ParseSpinAndMovement",rover,"RMLMM").Return()
+	mockParser.On("ParsePlateauDimensions", rover, "10 10").Return()
+	mockParser.On("ParseCoordinatesAndOrientation", rover, "2 3 N").Return()
+	mockParser.On("ParseSpinAndMovement", rover, "RMLMM").Return()
 
 	writer.Write([]byte("10 10\n"))
 	writer.Write([]byte("2 3 N\n"))
@@ -60,43 +57,41 @@ func TestReadInstructionsandCalculateRoverFinalPosition(t *testing.T)  {
 	writer.Close()
 
 	//Then
-	assert.Equal(t,2,commandLine.getState())
+	assert.Equal(t, 2, commandLine.getState())
 	mockParser.AssertExpectations(t)
 
 }
 
-
 //Mocks
-
 
 type MockParser struct {
 	mock.Mock
 }
 
-func (parser *MockParser)ParsePlateauDimensions(rover marsrover.MarsExplorer,plateauDimensions string) {
-	parser.Called(rover,plateauDimensions)
+func (parser *MockParser) ParsePlateauDimensions(rover marsrover.MarsExplorer, plateauDimensions string) {
+	parser.Called(rover, plateauDimensions)
 }
 
-func (parser *MockParser)ParseCoordinatesAndOrientation(rover marsrover.MarsExplorer,coordinatesAndOrientation string) {
-	parser.Called(rover,coordinatesAndOrientation)
+func (parser *MockParser) ParseCoordinatesAndOrientation(rover marsrover.MarsExplorer, coordinatesAndOrientation string) {
+	parser.Called(rover, coordinatesAndOrientation)
 }
 
-func (parser *MockParser)ParseSpinAndMovement(rover marsrover.MarsExplorer,spinAndMovementInstructions string) {
-	parser.Called(rover,spinAndMovementInstructions)
+func (parser *MockParser) ParseSpinAndMovement(rover marsrover.MarsExplorer, spinAndMovementInstructions string) {
+	parser.Called(rover, spinAndMovementInstructions)
 }
 
 type StdInAndOutMock struct {
-	realStdIn *os.File
-	realStdOut *os.File
-	stdInMockReader *os.File
-	stdInMockWriter *os.File
+	realStdIn        *os.File
+	realStdOut       *os.File
+	stdInMockReader  *os.File
+	stdInMockWriter  *os.File
 	stdOutMockReader *os.File
 	stdOutMockWriter *os.File
 }
 
-func (stdInAndOutMock *StdInAndOutMock) setFakeStdInAndOut()   {
+func (stdInAndOutMock *StdInAndOutMock) setFakeStdInAndOut() {
 	stdInAndOutMock.realStdOut = os.Stdout
-	stdInAndOutMock.realStdIn  = os.Stdin
+	stdInAndOutMock.realStdIn = os.Stdin
 
 	stdInAndOutMock.stdInMockReader, stdInAndOutMock.stdInMockWriter, _ = os.Pipe()
 	stdInAndOutMock.stdOutMockReader, stdInAndOutMock.stdOutMockWriter, _ = os.Pipe()
@@ -106,12 +101,12 @@ func (stdInAndOutMock *StdInAndOutMock) setFakeStdInAndOut()   {
 
 }
 
-func (stdInAndOutMock *StdInAndOutMock) getCapturedInput() string  {
+func (stdInAndOutMock *StdInAndOutMock) getCapturedInput() string {
 	output, _ := ioutil.ReadAll(stdInAndOutMock.stdInMockReader)
 	return string(output)
 }
 
-func (stdInAndOutMock *StdInAndOutMock) getCapturedOutput() string  {
+func (stdInAndOutMock *StdInAndOutMock) getCapturedOutput() string {
 	output, _ := ioutil.ReadAll(stdInAndOutMock.stdOutMockReader)
 	return string(output)
 }
@@ -126,26 +121,25 @@ func (stdInAndOutMock *StdInAndOutMock) closeFakeWriters() {
 	stdInAndOutMock.stdOutMockWriter.Close()
 }
 
-
 //Mocks
 
 type RoverMock struct {
 	mock.Mock
 }
 
-func (roverMock *RoverMock) SetCoordinates(xCoordinate,yCoordinate int)  {
-	roverMock.Called(xCoordinate,yCoordinate)
+func (roverMock *RoverMock) SetCoordinates(xCoordinate, yCoordinate int) {
+	roverMock.Called(xCoordinate, yCoordinate)
 }
 
-func (roverMock *RoverMock) SetOrientation(orientation string)  {
+func (roverMock *RoverMock) SetOrientation(orientation string) {
 	roverMock.Called(orientation)
 }
 
-func (roverMock *RoverMock) Spin(direction string)  {
+func (roverMock *RoverMock) Spin(direction string) {
 	roverMock.Called(direction)
 }
 
-func (roverMock *RoverMock) Move()  {
+func (roverMock *RoverMock) Move() {
 	roverMock.Called()
 }
 
