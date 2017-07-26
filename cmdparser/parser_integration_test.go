@@ -3,22 +3,22 @@ package cmdparser
 import "testing"
 import (
 	"github.com/stretchr/testify/assert"
-	"marsRover/rover"
+	"marsRover/marsrover"
 )
 
 func TestParserSetConfigurationForRover(t *testing.T)  {
 	//Given
 	parser := DefaultParser{}
-	rover := new(rover.Rover)
+	rover := new(marsrover.Rover)
 
 	//When
 	parser.ParsePlateauDimensions(rover,"10 10")
 	parser.ParseCoordinatesAndOrientation(rover,"2 3 N")
 	parser.ParseSpinAndMovement(rover,"RMLMM")
-	xCoordinate,yCoordinate := rover.GetCoordinates()
+	xCoordinate,yCoordinate := rover.Coordinates()
 
 	//Then
-	assert.Equal(t,"N",rover.GetOrientation())
+	assert.Equal(t,"N",rover.Orientation())
 	assert.Equal(t,3,xCoordinate)
 	assert.Equal(t,5,yCoordinate)
 

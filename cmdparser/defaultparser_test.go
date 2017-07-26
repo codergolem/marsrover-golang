@@ -3,7 +3,7 @@ package cmdparser
 import (
 	"testing"
 	"github.com/stretchr/testify/mock"
-	"marsRover/plateau"
+	"marsRover/marsrover"
 )
 
 
@@ -40,7 +40,7 @@ func TestParsePlateauDimensions(t *testing.T) {
 	//given
 	roverMock := new(RoverMock)
 	roverParser:= new(DefaultParser)
-	plateau := plateau.Plateau{5,6}
+	plateau := marsrover.Plateau{5, 6}
 	roverMock.On("SetPlateau",plateau).Return()
 
 	//When
@@ -74,6 +74,6 @@ func (roverMock *RoverMock) Move()  {
 	roverMock.Called()
 }
 
-func (roverMock *RoverMock) SetPlateau(plateau plateau.Plateau) {
+func (roverMock *RoverMock) SetPlateau(plateau marsrover.Plateau) {
 	roverMock.Called(plateau)
 }

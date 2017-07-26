@@ -6,14 +6,14 @@ import (
 	"os"
 	"strings"
 	"marsRover/cmdparser"
-	"marsRover/rover"
+	"marsRover/marsrover"
 )
 
 type RoverCommandLine struct {
-	Iface *os.File
-	state int
+	Iface  *os.File
+	state  int
 	Parser cmdparser.RoverParser
-	Rover rover.MarsExplorer
+	Rover  marsrover.MarsExplorer
 	reader *bufio.Reader
 }
 
@@ -22,7 +22,7 @@ func (roverCommandLine *RoverCommandLine) SetParser(parser cmdparser.RoverParser
 	roverCommandLine.Parser = parser
 }
 
-func (roverCommandLine *RoverCommandLine) SetRover(rover rover.MarsExplorer) {
+func (roverCommandLine *RoverCommandLine) SetRover(rover marsrover.MarsExplorer) {
 	roverCommandLine.Rover = rover
 }
 
@@ -32,7 +32,7 @@ func (roverCommandLine *RoverCommandLine) getState() int  {
 
 func (roverCommandLine *RoverCommandLine) start(iface *os.File){
 	roverCommandLine.Iface = iface
-	fmt.Print("Please provide plateau dimensions,rover initial position and movement instructions:")
+	fmt.Print("Please provide plateau dimensions,marsrover initial position and movement instructions:")
 	roverCommandLine.state = 1
 	roverCommandLine.reader  = bufio.NewReader(roverCommandLine.Iface)
 
@@ -45,18 +45,17 @@ func (roverCommandLine *RoverCommandLine) read()  {
 		for n:= 0; n < 3 && text != "x" ; n++ {
 			text, _ = roverCommandLine.reader.ReadString('\n')
 			text = strings.Replace(text, "\n", "", -1)
-			if(n == 0) {
+			if n == 0 {
 				roverCommandLine.Parser.ParsePlateauDimensions(roverCommandLine.Rover,text)
 			}
-			if(n == 1) {
+			if n == 1 {
 				roverCommandLine.Parser.ParseCoordinatesAndOrientation(roverCommandLine.Rover,text)
 			}
-			if(n == 2) {
+			if n == 2 {
 				roverCommandLine.Parser.ParseSpinAndMovement(roverCommandLine.Rover,text)
 			}
 		}
 	
 	}
-
 	roverCommandLine.state = 2
 }

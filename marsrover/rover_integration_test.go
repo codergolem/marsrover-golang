@@ -1,4 +1,4 @@
-package rover
+package marsrover
 
 import (
 	"testing"

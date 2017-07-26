@@ -6,8 +6,7 @@ import (
 	"io/ioutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"marsRover/rover"
-	"marsRover/plateau"
+	"marsRover/marsrover"
 )
 
 
@@ -26,7 +25,7 @@ func TestCliShouldDisplayInitialInstructionsAndWaitForPlateauDimensions(t *testi
 
 
 	//Then
-	assert.Equal(t,"Please provide plateau dimensions,rover initial position and movement instructions:",output)
+	assert.Equal(t,"Please provide plateau dimensions,marsrover initial position and movement instructions:",output)
 	assert.Equal(t,commandLine.getState(),1)
 
 }
@@ -74,15 +73,15 @@ type MockParser struct {
 	mock.Mock
 }
 
-func (parser *MockParser)ParsePlateauDimensions(rover rover.MarsExplorer,plateauDimensions string) {
+func (parser *MockParser)ParsePlateauDimensions(rover marsrover.MarsExplorer,plateauDimensions string) {
 	parser.Called(rover,plateauDimensions)
 }
 
-func (parser *MockParser)ParseCoordinatesAndOrientation(rover rover.MarsExplorer,coordinatesAndOrientation string) {
+func (parser *MockParser)ParseCoordinatesAndOrientation(rover marsrover.MarsExplorer,coordinatesAndOrientation string) {
 	parser.Called(rover,coordinatesAndOrientation)
 }
 
-func (parser *MockParser)ParseSpinAndMovement(rover rover.MarsExplorer,spinAndMovementInstructions string) {
+func (parser *MockParser)ParseSpinAndMovement(rover marsrover.MarsExplorer,spinAndMovementInstructions string) {
 	parser.Called(rover,spinAndMovementInstructions)
 }
 
@@ -150,6 +149,6 @@ func (roverMock *RoverMock) Move()  {
 	roverMock.Called()
 }
 
-func (roverMock *RoverMock) SetPlateau(plateau plateau.Plateau) {
+func (roverMock *RoverMock) SetPlateau(plateau marsrover.Plateau) {
 	roverMock.Called(plateau)
 }

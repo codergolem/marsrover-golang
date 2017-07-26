@@ -1,9 +1,8 @@
-package rover
+package marsrover
 
 import "testing"
 import (
 	"github.com/onsi/gomega"
-	"marsRover/plateau"
 )
 
 
@@ -17,7 +16,7 @@ func TestSetCoordinates(t *testing.T)  {
 
 	//When
 	rover.SetCoordinates(coordinateX,coordinateY)
-	actualXCoordinate, actualYCoordinate := rover.GetCoordinates()
+	actualXCoordinate, actualYCoordinate := rover.Coordinates()
 
 	//Then
 	gomega.Expect(actualXCoordinate).To(gomega.Equal(coordinateX))
@@ -34,7 +33,7 @@ func TestSetOrientation(t *testing.T)  {
 
 	//When
 	rover.SetOrientation(orientation)
-	actualOrientation := rover.GetOrientation()
+	actualOrientation := rover.Orientation()
 
 	//Then
 	gomega.Expect(actualOrientation).To(gomega.Equal(orientation))
@@ -44,7 +43,7 @@ func TestSetOrientation(t *testing.T)  {
 func TestSetPlateau(t *testing.T)  {
 	gomega.RegisterTestingT(t)
 	//Given
-	plateau := plateau.Plateau{7,8}
+	plateau := Plateau{7,8}
 	rover := new(Rover)
 
 	//When
@@ -63,7 +62,7 @@ func TestRoverSpinToTheLeftWhenStartingFromNorth(t *testing.T)  {
 
 	//When
 	rover.Spin("L")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("W"))
@@ -80,7 +79,7 @@ func TestRoverSpinToTheLeftWhenStartingFromWest(t *testing.T)  {
 	rover.SetOrientation(orientation)
 	//When
 	rover.Spin("L")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("S"))
@@ -98,7 +97,7 @@ func TestRoverSpinToTheLeftWhenStartingFromSouth(t *testing.T)  {
 
 	//When
 	rover.Spin("L")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("E"))
@@ -115,7 +114,7 @@ func TestRoverSpinToTheLeftWhenStartingFromEast(t *testing.T)  {
 
 	//When
 	rover.Spin("L")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("N"))
@@ -132,7 +131,7 @@ func TestRoverSpinToTheRightWhenStartingFromNorth(t *testing.T)  {
 
 	//When
 	rover.Spin("R")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("E"))
@@ -150,7 +149,7 @@ func TestRoverSpinToTheRightWhenStartingFromEast(t *testing.T)  {
 
 	//When
 	rover.Spin("R")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("S"))
@@ -168,7 +167,7 @@ func TestRoverSpinToTheRightWhenStartingFromSouth(t *testing.T)  {
 
 	//When
 	rover.Spin("R")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("W"))
@@ -186,7 +185,7 @@ func TestRoverSpinToTheRightWhenStartingFromWest(t *testing.T)  {
 
 	//When
 	rover.Spin("R")
-	orientationAfterSpinning := rover.GetOrientation()
+	orientationAfterSpinning := rover.Orientation()
 
 	//Then
 	gomega.Expect(orientationAfterSpinning).To(gomega.Equal("N"))

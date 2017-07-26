@@ -3,14 +3,13 @@ package cmdparser
 import (
 	"strings"
 	"strconv"
-	"marsRover/rover"
-	"marsRover/plateau"
+	"marsRover/marsrover"
 )
 
 type RoverParser interface {
-	ParseCoordinatesAndOrientation(rover.MarsExplorer,string)
-	ParseSpinAndMovement(rover.MarsExplorer,string)
-	ParsePlateauDimensions(rover.MarsExplorer,string)
+	ParseCoordinatesAndOrientation(marsrover.MarsExplorer,string)
+	ParseSpinAndMovement(marsrover.MarsExplorer,string)
+	ParsePlateauDimensions(marsrover.MarsExplorer,string)
 }
 
 
@@ -18,7 +17,7 @@ type DefaultParser struct {
 
 }
 
-func (parser *DefaultParser)ParseCoordinatesAndOrientation(rover rover.MarsExplorer,coordinatesAndOrientation string)  {
+func (parser *DefaultParser)ParseCoordinatesAndOrientation(rover marsrover.MarsExplorer,coordinatesAndOrientation string)  {
 	parsedCoordinatesAndOrientation := strings.Split(coordinatesAndOrientation," ")
 
 	xCoordinate,_ := strconv.Atoi(parsedCoordinatesAndOrientation[0])
@@ -30,26 +29,26 @@ func (parser *DefaultParser)ParseCoordinatesAndOrientation(rover rover.MarsExplo
 	rover.SetOrientation(orientation)
 }
 
-func (parser *DefaultParser)ParseSpinAndMovement(rover rover.MarsExplorer,spindAndMovementsInstructions string)  {
+func (parser *DefaultParser)ParseSpinAndMovement(rover marsrover.MarsExplorer,spindAndMovementsInstructions string)  {
 	parsedSpinAndMoveInstructions := strings.Split(spindAndMovementsInstructions,"")
 
 	for _,singleInstruction := range parsedSpinAndMoveInstructions {
-		if(singleInstruction == "L" || singleInstruction == "R") {
+		if singleInstruction == "L" || singleInstruction == "R" {
 			rover.Spin(singleInstruction)
 		}
-		if(singleInstruction == "M") {
+		if singleInstruction == "M" {
 			rover.Move()
 		}
 	}
 
 }
 
-func (parser *DefaultParser)ParsePlateauDimensions(rover rover.MarsExplorer,plateauDimensions string)  {
+func (parser *DefaultParser)ParsePlateauDimensions(rover marsrover.MarsExplorer,plateauDimensions string)  {
 	parsedPlateauDimensions := strings.Split(plateauDimensions," ")
 	parsedXCoordinate,_ := strconv.Atoi(parsedPlateauDimensions[0])
 	parsedYCoordinate,_ := strconv.Atoi(parsedPlateauDimensions[1])
 
-	plateau:= plateau.Plateau{parsedXCoordinate,parsedYCoordinate}
+	plateau:= marsrover.Plateau{parsedXCoordinate, parsedYCoordinate}
 
 	rover.SetPlateau(plateau)
 
